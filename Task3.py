@@ -1,0 +1,1 @@
+item_amount = int(input("Enter the length of list of items: "))

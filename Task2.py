@@ -1,0 +1,1 @@
+pos_int = int(input("Input a positive integer: "))
