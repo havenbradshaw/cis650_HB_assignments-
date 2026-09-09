@@ -9,7 +9,7 @@ while True:
     else:
         if name == myName:
             try:
-                age = int(input("Enter your age: "))
+                age = float(input("Enter your age: "))
             except ValueError:
                     print("This is not a valid age.")
                     continue
