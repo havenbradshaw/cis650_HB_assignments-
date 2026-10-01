@@ -37,13 +37,28 @@ catalog = [
      "price": 5.49}
 ]
 
-def find_price():
-    item_to_find = int(input("Enter item number to find: "))
-
+def find_price(item_number):
     for product in catalog:
-        if product["item"] == item_to_find:
+        if product["item"] == item_number:
             print(f"{product['name']}, {product['category']}: ${product['price']}")
             return product["price"]
 
     print("Item not found.")
     return None
+
+def find_extreme(category, extreme):
+    best = None
+    for product in catalog:
+        if product["category"] == category:
+            if best is None:
+                best = product
+            elif extreme == "highest" and product["price"] > best["price"]:
+                best = product
+            elif extreme == "lowest" and product["price"] < best["price"]:
+                best = product
+    print(f"{best['name']}, {best['category']} : ${best['price']:.2f}")
+
+
+if __name__ == "__main__":
+    find_price(119)
+    find_extreme("Paper", "highest")
