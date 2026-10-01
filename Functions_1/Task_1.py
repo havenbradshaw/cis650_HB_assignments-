@@ -42,7 +42,7 @@ def find_price():
 
     for product in catalog:
         if product["item"] == item_to_find:
-            print(f"{product['name']}: ${product['price']:.2f}")
+            print(f"{product['name']}, {product['category']}: ${product['price']}")
             return product["price"]
 
     print("Item not found.")
