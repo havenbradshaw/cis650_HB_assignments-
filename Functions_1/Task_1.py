@@ -1,3 +1,5 @@
+import random
+
 catalog = [
     {"item":101,"name": "Notebook", "category": "Paper", "price": 3.99},
     {"item":102, "name": "Pen", "category": "Writing", "price": 1.50},
@@ -40,32 +42,70 @@ catalog = [
 def find_price(item_number):
     for product in catalog:
         if product["item"] == item_number:
-            print(f"{product['name']}, {product['category']}: ${product['price']}")
-            return product["price"]
-
-    print("Item not found.")
+            return {
+                "name": product["name"],
+                "category": product["category"],
+                "price": product["price"],
+            }
     return None
 
-def find_extreme(category, extreme):
+def find_extreme(category, extreme = "Highest"):
     best = None
+
     for product in catalog:
         if product["category"] == category:
             if best is None:
                 best = product
-            elif extreme == "highest" and product["price"] > best["price"]:
+            elif extreme == "Highest" and product["price"] > best["price"]:
                 best = product
-            elif extreme == "lowest" and product["price"] < best["price"]:
+            elif extreme == "Lowest" and product["price"] < best["price"]:
                 best = product
-    print(f"{best['name']}, {best['category']} : ${best['price']:.2f}")
+    if best is None:
+        return {}
+    return {best["item"]: {"name": best["name"],
+                           "category": best["category"],
+                           "price": best["price"]}}
 
 def bogo_price(cart_item):
-    price = next(p["price"] for p in catalog if p["item"] == cart_item["item"])
+    product = find_price(cart_item["item"])
+    if product is None:
+        return None
+
+    price = product["price"]
     quantity = cart_item["quantity"]
 
     extended = price * quantity - (quantity // 2) * price * 0.5
 
     return {**cart_item, "extended_price": round(extended, 2)}
 
+# 1. random.choice: picks one random item from the catalog
+def random_choice():
+    item = random.choice(catalog)
+    print(f"Random item: {item['name']} (${item['price']:.2f})")
+
+# 2. random.sample: pick several different items with no repeats
+def random_sample_3():
+    basket = random.sample(catalog, 3)
+    print("Random basket:")
+    for product in basket:
+        print(f"  {product['name']}: ${product['price']:.2f}")
+
 if __name__ == "__main__":
-    find_price(119)
-    find_extreme("Paper", "highest")
+    print(find_price(101))
+    print(find_price(110))
+    print(find_price(119))
+    print(find_price(999))
+
+    print(find_extreme("Paper", "Highest"))
+    print(find_extreme("Paper", "Lowest"))
+    print(find_extreme("Office Supplies", "Highest"))
+    print(find_extreme("Office Supplies", "Lowest"))
+    print(find_extreme("Nonexistent"))
+
+    print(bogo_price({"item": 101, "quantity": 3}))
+    print(bogo_price({"item": 102, "quantity": 1}))
+    print(bogo_price({"item": 120, "quantity": 4}))
+    print(bogo_price({"item": 999, "quantity": 2}))
+
+    random_choice()
+    random_sample_3()
