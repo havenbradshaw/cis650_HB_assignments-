@@ -13,7 +13,8 @@ def list_folder(folder_name):
 
     print(f"Files in {folder_name}:")
     for name in files:
-        print(f"  {name}")
+        if os.path.isfile(os.path.join(folder_name, name)):
+            print(f"  {name}")
 
 def rename_file(old_name, new_name):
     if not os.path.isfile(old_name):
@@ -33,13 +34,4 @@ def rename_file(old_name, new_name):
     print(f"Updated file name: {new_name}")
 
 if __name__ == "__main__":
-    list_folder(".")
-    list_folder("no_such_folder")
-
-    with open("old_name.txt", "w") as f:
-        f.write("test")
-
-    rename_file("old_name.txt", "new_name.txt")
-    rename_file("old_name.txt", "new_name.txt")
-
-    os.remove("new_name.txt")
+    list_folder(input("Enter a folder name: "))
