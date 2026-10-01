@@ -58,6 +58,13 @@ def find_extreme(category, extreme):
                 best = product
     print(f"{best['name']}, {best['category']} : ${best['price']:.2f}")
 
+def bogo_price(cart_item):
+    price = next(p["price"] for p in catalog if p["item"] == cart_item["item"])
+    quantity = cart_item["quantity"]
+
+    extended = price * quantity - (quantity // 2) * price * 0.5
+
+    return {**cart_item, "extended_price": round(extended, 2)}
 
 if __name__ == "__main__":
     find_price(119)
