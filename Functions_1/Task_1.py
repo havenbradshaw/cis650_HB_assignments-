@@ -37,3 +37,13 @@ catalog = [
      "price": 5.49}
 ]
 
+def find_price():
+    item_to_find = int(input("Enter item number to find: "))
+
+    for product in catalog:
+        if product["item"] == item_to_find:
+            print(f"{product['name']}: ${product['price']:.2f}")
+            return product["price"]
+
+    print("Item not found.")
+    return None
