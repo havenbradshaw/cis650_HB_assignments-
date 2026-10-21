@@ -1,3 +1,7 @@
+from datetime import date  # 1b
+
+TEXT_FILE = "study_log.txt"  # 1b
+
 def is_valid_text(text):
     return len(text) > 0
 
@@ -30,11 +34,19 @@ def get_note():
         print("Note cannot be empty.")
 
 
+def append_text_entry(entry):  # 1b
+    line = f"{entry['date']} | {entry['course']} | {entry['minutes']} | {entry['note']}\n"
+    with open(TEXT_FILE, "a", encoding="utf-8") as f:
+        f.write(line)
+
 def main():
-    subject = get_subject()
-    minutes = get_minutes()
-    note = get_note()
-    print(subject, minutes, note)  # placeholder, replaced in 1b
+    entry = {  # 1b
+        "date": date.today().isoformat(),
+        "course": get_subject(),
+        "minutes": get_minutes(),
+        "note": get_note(),
+    }
+    append_text_entry(entry)  # 1b
 
 
 if __name__ == "__main__":
