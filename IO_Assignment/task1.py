@@ -1,6 +1,9 @@
-from datetime import date  # 1b
+import json
+import os
+from datetime import date
 
-TEXT_FILE = "study_log.txt"  # 1b
+TEXT_FILE = "study_log.txt"
+JSON_FILE = "study_log.json"
 
 def is_valid_text(text):
     return len(text) > 0
@@ -34,19 +37,39 @@ def get_note():
         print("Note cannot be empty.")
 
 
-def append_text_entry(entry):  # 1b
+def append_text_entry(entry):
     line = f"{entry['date']} | {entry['course']} | {entry['minutes']} | {entry['note']}\n"
     with open(TEXT_FILE, "a", encoding="utf-8") as f:
         f.write(line)
 
+
+def load_json_entries():  # 1c
+    if not os.path.exists(JSON_FILE):
+        return []
+    try:
+        with open(JSON_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, list) else []
+    except json.JSONDecodeError:
+        return []
+
+
+def append_json_entry(entry):  # 1c
+    entries = load_json_entries()
+    entries.append(entry)
+    with open(JSON_FILE, "w", encoding="utf-8") as f:
+        json.dump(entries, f, indent=2)
+
+
 def main():
-    entry = {  # 1b
+    entry = {
         "date": date.today().isoformat(),
         "course": get_subject(),
         "minutes": get_minutes(),
         "note": get_note(),
     }
-    append_text_entry(entry)  # 1b
+    append_text_entry(entry)
+    append_json_entry(entry)
 
 
 if __name__ == "__main__":
