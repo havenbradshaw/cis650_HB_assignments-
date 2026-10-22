@@ -27,12 +27,19 @@ def average_session_length(course):
         return 0.0
     return round(sum(minutes) / len(minutes), 1)
 
+def get_course_notes(course):
+    matches = [(e["date"], e["note"]) for e in load_entries() if e["course"] == course]
+    return sorted(matches, key=lambda pair: pair[0])  # ISO dates sort chronologically
+
+
 def main():
     totals = total_minutes_per_course()
     print("Data Management:", totals["Data Management"], "minutes")
     course, sessions = most_active_course()
     print("Most active:", course, sessions, "sessions")
     print("Average Session Length:", average_session_length(course))
+    for date, note in get_course_notes("Data Management"):  # 2d
+        print(date, "-", note)
 
 if __name__ == "__main__":
     main()
