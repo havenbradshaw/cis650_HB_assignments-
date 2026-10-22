@@ -43,7 +43,7 @@ def append_text_entry(entry):
         f.write(line)
 
 
-def load_json_entries():  # 1c
+def load_json_entries():
     if not os.path.exists(JSON_FILE):
         return []
     try:
@@ -54,11 +54,24 @@ def load_json_entries():  # 1c
         return []
 
 
-def append_json_entry(entry):  # 1c
+def append_json_entry(entry):
     entries = load_json_entries()
     entries.append(entry)
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(entries, f, indent=2)
+
+def print_file(path, title):
+    print(f"\n{title} ({path})")
+    if not os.path.exists(path):
+        print("(file not found)")
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        print(f.read())
+
+
+def show_history():
+    print_file(TEXT_FILE, "Text log")
+    print_file(JSON_FILE, "JSON log")
 
 
 def main():
