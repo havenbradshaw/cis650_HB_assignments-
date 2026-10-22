@@ -83,6 +83,7 @@ def main():
     }
     append_text_entry(entry)
     append_json_entry(entry)
+    show_history()
 
 
 if __name__ == "__main__":
