@@ -5,7 +5,7 @@ def home():
     st.write("Use the sidebar to navigate")
  
 pg = st.navigation([
-    st.Page(home, title="Home", icon="⌂"),
+    st.Page(home, title="Home"),
     st.Page("pages/new_album.py", title="New Album"),
     st.Page("pages/new_track.py", title="New Track"),
     st.Page("pages/update_album.py", title="Update Album"),
