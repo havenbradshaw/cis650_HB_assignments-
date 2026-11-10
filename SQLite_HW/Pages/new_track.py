@@ -16,7 +16,7 @@ albums_dataframe["albumTitle"])
     if submitted:
         if track_title:
             selected_album_id = int(albums_dataframe.loc[albums_dataframe["albumTitle"] 
-                                == selected_album_title, "albumId"].iloc[0])
+                                == selected_album_title, "albumID"].iloc[0])
             new_track_id = add_track(selected_album_id, track_title, duration)
             st.success(f"Track added. Track ID: {new_track_id}")
         else:
