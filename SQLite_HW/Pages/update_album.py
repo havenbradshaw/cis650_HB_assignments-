@@ -1,6 +1,6 @@
 #pages/update_patient.py
 import streamlit as st
-import database from get_all_albums, update_album
+from database import get_all_albums, update_album
 
 st.subheader("Update Album")
 albums_dataframe = get_all_albums()
